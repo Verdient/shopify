@@ -26,7 +26,6 @@ class AssignedFulfillmentOrder extends AbstractComponent
         return 'assigned_fulfillment_orders';
     }
 
-
     /**
      * @inheritdoc
      * @author Verdient。
