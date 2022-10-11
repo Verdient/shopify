@@ -1,0 +1,15 @@
+{
+    "name": "verdient/shopify",
+    "type": "library",
+    "require": {
+        "verdient/http-api": "^0.0"
+    },
+    "require-dev": {
+        "swoole/ide-helper": "^4.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Verdient\\Shopify\\": "src"
+        }
+    }
+}

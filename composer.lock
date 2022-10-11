@@ -1,0 +1,209 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "62b6060a519e2318c4917e8e3d62c746",
+    "packages": [
+        {
+            "name": "verdient/chorus",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Verdient/chorus.git",
+                "reference": "aaaea387a389b75b39528862f1632f18386702a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Verdient/chorus/zipball/aaaea387a389b75b39528862f1632f18386702a4",
+                "reference": "aaaea387a389b75b39528862f1632f18386702a4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "chorus\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Verdient.",
+                    "email": "fagui.zhu@foxmail.com",
+                    "homepage": "https://github.com/Verdient"
+                }
+            ],
+            "description": "Something basic but amazing",
+            "homepage": "https://github.com/Verdient/chorus",
+            "keywords": [
+                "base",
+                "basic",
+                "support"
+            ],
+            "support": {
+                "issues": "https://github.com/Verdient/chorus/issues",
+                "source": "https://github.com/Verdient/chorus"
+            },
+            "time": "2021-04-27T09:32:18+00:00"
+        },
+        {
+            "name": "verdient/http",
+            "version": "0.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Verdient/http.git",
+                "reference": "5eba8d25762668ef2474f29af37be2776ee4e9be"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Verdient/http/zipball/5eba8d25762668ef2474f29af37be2776ee4e9be",
+                "reference": "5eba8d25762668ef2474f29af37be2776ee4e9be",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0",
+                "verdient/chorus": "~0.1.0"
+            },
+            "require-dev": {
+                "swoole/ide-helper": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Verdient\\http\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Verdient.",
+                    "email": "fagui.zhu@foxmail.com",
+                    "homepage": "https://github.com/Verdient"
+                }
+            ],
+            "description": "php http client",
+            "homepage": "https://github.com/Verdient/http",
+            "keywords": [
+                "http",
+                "request",
+                "restful"
+            ],
+            "support": {
+                "issues": "https://github.com/Verdient/http/issues",
+                "source": "https://github.com/Verdient/http"
+            },
+            "time": "2022-09-06T06:35:04+00:00"
+        },
+        {
+            "name": "verdient/http-api",
+            "version": "0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Verdient/http-api.git",
+                "reference": "21eea6abcbb009ebea190dc3b75f6215ec68905c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Verdient/http-api/zipball/21eea6abcbb009ebea190dc3b75f6215ec68905c",
+                "reference": "21eea6abcbb009ebea190dc3b75f6215ec68905c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0",
+                "verdient/chorus": "~0.1.0",
+                "verdient/http": "~0.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Verdient\\HttpAPI\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Verdient.",
+                    "email": "fagui.zhu@foxmail.com",
+                    "homepage": "https://github.com/Verdient"
+                }
+            ],
+            "description": "HTTP API PACKAGE",
+            "homepage": "https://github.com/Verdient/http-api",
+            "keywords": [
+                "api",
+                "http-api",
+                "package"
+            ],
+            "support": {
+                "issues": "https://github.com/Verdient/http-api/issues",
+                "source": "https://github.com/Verdient/http-api"
+            },
+            "time": "2021-04-27T06:52:31+00:00"
+        }
+    ],
+    "packages-dev": [
+        {
+            "name": "swoole/ide-helper",
+            "version": "4.8.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/swoole/ide-helper.git",
+                "reference": "afe3a09f8c49a6011e2206a03e55e391d97d81b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/swoole/ide-helper/zipball/afe3a09f8c49a6011e2206a03e55e391d97d81b0",
+                "reference": "afe3a09f8c49a6011e2206a03e55e391d97d81b0",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Team Swoole",
+                    "email": "team@swoole.com"
+                }
+            ],
+            "description": "IDE help files for Swoole.",
+            "support": {
+                "issues": "https://github.com/swoole/ide-helper/issues",
+                "source": "https://github.com/swoole/ide-helper/tree/4.8.12"
+            },
+            "funding": [
+                {
+                    "url": "https://gitee.com/swoole/swoole?donate=true",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/swoole",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-09-22T16:31:12+00:00"
+        }
+    ],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}
