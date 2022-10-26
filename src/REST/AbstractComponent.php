@@ -22,7 +22,7 @@ abstract class AbstractComponent extends AbstractClient
      * @inheritdoc
      * @author Verdient。
      */
-    public $routePrefix = 'admin/api/2022-04';
+    public $routePrefix = 'admin/api/2022-07';
 
     /**
      * @var string 授权秘钥
