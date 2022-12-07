@@ -97,4 +97,17 @@ class Order extends AbstractComponent
     {
         return new FulfillmentAssociatedOrder($orderId, $this->host, $this->accessToken);
     }
+
+    /**
+     * 事件
+     * @param int $orderId 订单编号
+     * @return Response
+     * @author Verdient。
+     */
+    public function events($orderId)
+    {
+        return $this
+            ->request($this->resource() . '/' . $orderId . '/events')
+            ->send();
+    }
 }
