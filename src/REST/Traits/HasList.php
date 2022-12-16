@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Verdient\Shopify\REST\Traits;
 
+use Exception;
 use Iterator;
 use Verdient\Shopify\REST\Response;
 
@@ -58,27 +59,50 @@ trait HasList
      */
     public function iterator($query): Iterator
     {
-        /**
-         * @var Response
-         */
-        $response = $this->list($query);
+        $exception = null;
+        for ($i = 0; $i < 3; $i++) {
+            try {
+                $response = $this->list($query);
+                $exception = null;
+                break;
+            } catch (\Throwable $e) {
+                $exception = $e;
+            }
+        }
+        if ($exception) {
+            throw $exception;
+        }
         $continue = true;
         while ($continue) {
             $continue = false;
-            if ($response->getIsOK()) {
-                $body = $response->getData();
-                yield reset($body);
-                $headers = $response->getResponse()->getHeaders();
-                $link = $headers['link'] ?? ($headers['Link'] ?? null);
-                if ($link) {
-                    foreach (explode(', ', $link) as $ref) {
-                        $ref = explode('; ', $ref);
-                        if ($ref[1] === 'rel="next"') {
-                            $url = substr($ref[0], 1, -1);
-                            $response = $this->request($this->resource())->setUrl($url)->send();
-                            $continue = true;
-                            break;
+            if (!$response->getIsOK()) {
+                throw new Exception($response->getErrorMessage());
+            }
+            $body = $response->getData();
+            yield reset($body);
+            $headers = $response->getResponse()->getHeaders();
+            $link = $headers['link'] ?? ($headers['Link'] ?? null);
+            if ($link) {
+                foreach (explode(', ', $link) as $ref) {
+                    $ref = explode('; ', $ref);
+                    if ($ref[1] === 'rel="next"') {
+                        $url = substr($ref[0], 1, -1);
+                        $request = $this->request($this->resource())->setUrl($url);
+                        $exception = null;
+                        for ($i = 0; $i < 3; $i++) {
+                            try {
+                                $response = $request->send();
+                                $exception = null;
+                                break;
+                            } catch (\Throwable $e) {
+                                $exception = null;
+                            }
                         }
+                        if ($exception) {
+                            throw $exception;
+                        }
+                        $continue = true;
+                        break;
                     }
                 }
             }
