@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Verdient\Shopify\REST\Inventory;
 
 use Verdient\Shopify\REST\AbstractComponent;
-use Verdient\Shopify\REST\Response;
 use Verdient\Shopify\REST\Traits\HasCount;
 use Verdient\Shopify\REST\Traits\HasList;
 use Verdient\Shopify\REST\Traits\HasOne;
@@ -23,14 +22,12 @@ class Location extends AbstractComponent
     /**
      * 检索位置的库存水平列表
      * @param int $locationId 位置编号
-     * @return Response
+     * @return InventoryLevelAssociatedLocation
      * @author Verdient。
      */
-    public function inventoryLevels($locationId): Response
+    public function inventoryLevels($locationId): InventoryLevelAssociatedLocation
     {
-        return $this
-            ->request($this->resource() . '/' . $locationId . '/inventory_levels')
-            ->send();
+        return new InventoryLevelAssociatedLocation($locationId, $this->host, $this->accessToken);
     }
 
     /**
