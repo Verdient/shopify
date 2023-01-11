@@ -22,7 +22,7 @@ abstract class AbstractComponent extends AbstractClient
      * @inheritdoc
      * @author Verdient。
      */
-    public $routePrefix = 'admin/api/2022-07';
+    public $routePrefix = 'admin/api';
 
     /**
      * @var string 授权秘钥
@@ -37,6 +37,12 @@ abstract class AbstractComponent extends AbstractClient
     public $request = Request::class;
 
     /**
+     * @var string 版本号
+     * @author Verdient。
+     */
+    public $version = '2023-01';
+
+    /**
      * @inheritdoc
      * @param string $host 店铺域名
      * @param string $accessToken 授权秘钥
@@ -46,6 +52,15 @@ abstract class AbstractComponent extends AbstractClient
     {
         $this->host = $host;
         $this->accessToken = $accessToken;
+    }
+
+    /**
+     * @inheritdoc
+     * @author Verdient。
+     */
+    public function getRequestPath(): string
+    {
+        return parent::getRequestPath() . '/' . $this->version;
     }
 
     /**
