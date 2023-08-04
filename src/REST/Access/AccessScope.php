@@ -22,6 +22,12 @@ class AccessScope extends AbstractComponent
     public $routePrefix = 'admin/oauth';
 
     /**
+     * @var string|null 版本号
+     * @author Verdient。
+     */
+    public $version = null;
+
+    /**
      * @inheritdoc
      * @author Verdient。
      */

@@ -37,7 +37,7 @@ abstract class AbstractComponent extends AbstractClient
     public $request = Request::class;
 
     /**
-     * @var string 版本号
+     * @var string|null 版本号
      * @author Verdient。
      */
     public $version = '2023-01';
@@ -60,7 +60,10 @@ abstract class AbstractComponent extends AbstractClient
      */
     public function getRequestPath(): string
     {
-        return parent::getRequestPath() . '/' . $this->version;
+        if ($this->version) {
+            return parent::getRequestPath() . '/' . $this->version;
+        }
+        return parent::getRequestPath();
     }
 
     /**
