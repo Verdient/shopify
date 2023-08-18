@@ -2,7 +2,7 @@
     "name": "verdient/shopify",
     "type": "library",
     "require": {
-        "verdient/http-api": "^0.0"
+        "verdient/http-api": "^1.0"
     },
     "require-dev": {
         "swoole/ide-helper": "^4.8"
