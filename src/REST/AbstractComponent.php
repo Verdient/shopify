@@ -40,7 +40,7 @@ abstract class AbstractComponent extends AbstractClient
      * @var string|null 版本号
      * @author Verdient。
      */
-    public $version = '2023-07';
+    public $version = '2023-10';
 
     /**
      * @inheritdoc

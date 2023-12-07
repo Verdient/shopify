@@ -8,6 +8,7 @@ use Verdient\Shopify\REST\AbstractComponent;
 use Verdient\Shopify\REST\Response;
 use Verdient\Shopify\REST\Traits\HasCancel;
 use Verdient\Shopify\REST\Traits\HasCreate;
+use Verdient\Shopify\REST\Traits\HasOne;
 
 /**
  * 履约
@@ -17,6 +18,7 @@ class Fulfillment extends AbstractComponent
 {
     use HasCreate;
     use HasCancel;
+    use HasOne;
 
     /**
      * 更新跟踪信息
