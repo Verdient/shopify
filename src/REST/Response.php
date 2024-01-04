@@ -15,7 +15,7 @@ use Verdient\HttpAPI\Result;
 class Response extends AbstractResponse
 {
     /**
-     * @var RateLimit 速率限制
+     * @var RateLimit|null 速率限制
      * @author Verdient。
      */
     protected $rateLimit = null;
@@ -30,8 +30,6 @@ class Response extends AbstractResponse
         $headers = array_change_key_case($response->getHeaders(), CASE_LOWER);
         if (isset($headers['x-shopify-shop-api-call-limit'])) {
             $this->rateLimit = new RateLimit($headers['x-shopify-shop-api-call-limit']);
-        } else {
-            $this->rateLimit = new RateLimit('0/0');
         }
     }
 
@@ -54,10 +52,10 @@ class Response extends AbstractResponse
 
     /**
      * 获取速率限制
-     * @return RateLimit
+     * @return RateLimit|null
      * @author Verdient。
      */
-    public function getRateLimit(): RateLimit
+    public function getRateLimit()
     {
         return $this->rateLimit;
     }
