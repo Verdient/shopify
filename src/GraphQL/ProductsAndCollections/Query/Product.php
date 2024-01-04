@@ -16,6 +16,15 @@ class Product extends AbstractComponent
     use HasOne;
 
     /**
+     * 图片
+     * @author Verdient。
+     */
+    public function image($productId)
+    {
+        return new ProductImage($productId, $this->host, $this->accessToken);
+    }
+
+    /**
      * @inheritdoc
      * @author Verdient。
      */

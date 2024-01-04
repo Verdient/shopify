@@ -2,35 +2,35 @@
 
 declare(strict_types=1);
 
-namespace Verdient\Shopify\GraphQL\ProductsAndCollections\Query;
+namespace Verdient\Shopify\GraphQL\ShippingAndFulfillment\Query;
 
 use Verdient\Shopify\GraphQL\AbstractComponent;
 use Verdient\Shopify\GraphQL\Traits\HasList;
 
 /**
- * 位置
+ * 关联到订单的履约单
  * @author Verdient。
  */
-class ProductImage extends AbstractComponent
+class FulfillmentOrderAssociatedOrder extends AbstractComponent
 {
     use HasList;
 
     /**
-     * @var string 商品编号
+     * @var string 订单编号
      * @author Verdient。
      */
-    protected $productId;
+    protected $orderId;
 
     /**
      * @inheritdoc
-     * @param int|string $productId 商品编号
+     * @param int|string $orderId 订单编号
      * @param string $host 店铺域名
      * @param string $accessToken 授权秘钥
      * @author Verdient。
      */
-    public function __construct($productId, $host, $accessToken)
+    public function __construct($orderId, $host, $accessToken)
     {
-        $this->productId = $this->toGid($productId);
+        $this->orderId = $this->toGid($orderId);
         parent::__construct($host, $accessToken);
     }
 
@@ -41,9 +41,9 @@ class ProductImage extends AbstractComponent
     protected function resource()
     {
         return [
-            'product',
-            ['id' => $this->productId],
-            'images'
+            'order',
+            ['id' => $this->orderId],
+            'fulfillmentOrders'
         ];
     }
 }

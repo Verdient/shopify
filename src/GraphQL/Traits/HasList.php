@@ -25,7 +25,7 @@ trait HasList
     public function list($fields, $params = []): Response
     {
         if (empty($params['first']) && empty($params['last'])) {
-            $params['first'] = 100;
+            $params['first'] = 50;
         }
 
         $resource = $this->resource();
