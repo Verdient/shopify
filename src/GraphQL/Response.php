@@ -119,21 +119,33 @@ class Response extends AbstractResponse
             if (is_array($value)) {
                 $result[$name] = $this->normailzeData($value);
             } else {
-                if ($name === 'id') {
-                    $result['gid'] = $value;
-                    $idParts = explode('/', $value);
-                    $id = array_pop($idParts);
-                    $pos = strpos($id, '?');
-                    if ($pos !== false) {
-                        $id = substr($id, 0, $pos);
+                if (is_string($value)) {
+                    if (substr($value, 0, 14) === 'gid://shopify/') {
+                        $idParts = explode('/', $value);
+                        $id = array_pop($idParts);
+                        $pos = strpos($id, '?');
+                        if ($pos !== false) {
+                            $id = substr($id, 0, $pos);
+                        }
+                        if ($name === 'id') {
+                            $result[$name] = $id;
+                            $result['gid'] = $value;
+                        } else {
+                            $result[$name] = $id;
+                            if (substr($name, -2) === 'Id') {
+                                $result[substr($name, 0, -2) . 'Gid'] = $value;
+                            } else {
+                                $result[$name . 'Gid'] = $value;
+                            }
+                        }
+                    } else {
+                        $result[$name] = $value;
                     }
-                    $result['id'] = (int) $id;
                 } else {
                     $result[$name] = $value;
                 }
             }
         }
-
         return $result;
     }
 

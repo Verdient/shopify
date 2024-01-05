@@ -26,9 +26,8 @@ trait HasResource
      */
     public function toGid($id)
     {
-        $name = $this->resource()->getName();
         if (substr((string) $id, 0, 14) !== 'gid://shopify/') {
-            return 'gid://shopify/' . ucfirst($name) . '/' . $id;
+            return 'gid://shopify/' . ucfirst($this->resource()->getName()) . '/' . $id;
         }
         return $id;
     }
