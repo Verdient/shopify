@@ -83,7 +83,6 @@ abstract class AbstractComponent extends AbstractClient
         $request->addHeader('X-Shopify-Access-Token', $this->accessToken);
         $request->addHeader('X-GraphQL-Cost-Include-Fields', 'true');
         $request->setTimeout(60);
-        $request->setProxy('10.1.1.102', 7890);
         return $request;
     }
 }
