@@ -14,6 +14,8 @@ use Verdient\Shopify\GraphQL\Objects;
  */
 trait HasOne
 {
+    use HasResource;
+
     /**
      * 获取单个条目
      * @param array $fields 字段集合
@@ -23,11 +25,11 @@ trait HasOne
      */
     public function one($fields, $id)
     {
-        $resource = $this->resource();
+        $name = $this->resource()->getName();
 
         $query = Objects::toQuery([
             'query' => [
-                $resource => [
+                $name => [
                     '__params__' => ['id' => $this->toGid($id)],
                     ...$fields
                 ]
@@ -42,7 +44,7 @@ trait HasOne
         if ($res->getIsOK()) {
             $result = new Result;
             $result->isOK = true;
-            $result->data = $res->$resource;
+            $result->data = $res->$name;
             return Response::fromResult($result, $res);
         }
 

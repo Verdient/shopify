@@ -127,7 +127,7 @@ class Response extends AbstractResponse
                     if ($pos !== false) {
                         $id = substr($id, 0, $pos);
                     }
-                    $result['id'] = $id;
+                    $result['id'] = (int) $id;
                 } else {
                     $result[$name] = $value;
                 }

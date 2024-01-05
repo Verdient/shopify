@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Verdient\Shopify\GraphQL\StoreProperties\Query;
 
 use Verdient\Shopify\GraphQL\AbstractComponent;
+use Verdient\Shopify\GraphQL\Resource;
 use Verdient\Shopify\GraphQL\Traits\HasList;
 
 /**
@@ -19,8 +20,8 @@ class Locations extends AbstractComponent
      * @inheritdoc
      * @author Verdient。
      */
-    protected function resource(): string
+    protected function resource(): Resource
     {
-        return 'locations';
+        return new Resource('locations');
     }
 }

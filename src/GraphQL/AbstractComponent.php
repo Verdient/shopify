@@ -86,28 +86,4 @@ abstract class AbstractComponent extends AbstractClient
         $request->setProxy('10.1.1.102', 7890);
         return $request;
     }
-
-    /**
-     * 当前资源名称
-     * @return string|array
-     * @author Verdient。
-     */
-    abstract protected function resource();
-
-    /**
-     * 转换为GID
-     * @return string
-     * @author Verdient。
-     */
-    public function toGid($id)
-    {
-        $resource = $this->resource();
-        if (is_array($resource)) {
-            $resource = reset($resource);
-        }
-        if (substr((string) $id, 0, 14) !== 'gid://shopify/') {
-            return 'gid://shopify/' . ucfirst($resource) . '/' . $id;
-        }
-        return $id;
-    }
 }

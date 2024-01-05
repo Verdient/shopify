@@ -16,6 +16,8 @@ use Verdient\Shopify\GraphQL\Objects;
  */
 trait HasList
 {
+    use HasResource;
+
     /**
      * 获取列表
      * @param array $fields 字段集合
@@ -24,46 +26,53 @@ trait HasList
      */
     public function list($fields, $params = []): Response
     {
-        if (empty($params['first']) && empty($params['last'])) {
-            $params['first'] = 50;
-        }
-
         $resource = $this->resource();
 
-        if (is_string($resource)) {
-            $query = Objects::toQuery([
-                'query' => [
-                    $resource => [
-                        '__params__' => $params,
-                        'nodes' => $fields,
-                        'pageInfo' => [
-                            'hasNextPage',
-                            'endCursor',
-                            'hasPreviousPage',
-                            'startCursor'
-                        ]
-                    ]
+        $usePagination = $resource->getUsePagination();
+
+        if ($usePagination) {
+            if (empty($params['first']) && empty($params['last'])) {
+                $params['first'] = 50;
+            }
+
+            if (!array_key_exists('reverse', $params)) {
+                $params['reverse'] = true;
+            }
+
+            $fields = [
+                'nodes' => $fields,
+                'pageInfo' => [
+                    'hasNextPage',
+                    'endCursor',
+                    'hasPreviousPage',
+                    'startCursor'
                 ]
-            ]);
-        } else {
-            $query = Objects::toQuery([
-                'query' => [
-                    $resource[0] => [
-                        '__params__' => $resource[1],
-                        $resource[2] => [
-                            '__params__' => $params,
-                            'nodes' => $fields,
-                            'pageInfo' => [
-                                'hasNextPage',
-                                'endCursor',
-                                'hasPreviousPage',
-                                'startCursor'
-                            ]
-                        ]
-                    ]
-                ]
-            ]);
+            ];
         }
+
+        $field = $resource->getField();
+
+        if (empty($field)) {
+            $queryContents = $fields;
+            $queryParams = $params;
+        } else {
+            $queryContents = [
+                $field => array_merge([
+                    '__params__' => $params,
+                ], $fields)
+            ];
+            $queryParams = $resource->getParams();
+        }
+
+        $name = $resource->getName();
+
+        $query = Objects::toQuery([
+            'query' => [
+                $name => array_merge([
+                    '__params__' => $queryParams
+                ], $queryContents)
+            ]
+        ]);
 
         $res = $this
             ->request()
@@ -73,15 +82,16 @@ trait HasList
         if ($res->getIsOK()) {
             $result = new Result;
             $result->isOK = true;
-            if (is_string($resource)) {
-                $result->data = $res->$resource;
-            } else {
-                $key1 = $resource[0];
-                $data = $res->$key1;
+
+            $data = $res->$name;
+            if ($field) {
                 if (!empty($data)) {
-                    $data = $data[$resource[2]];
+                    $data = $data[$field];
                 }
-                $result->data = empty($data) ? [
+            }
+
+            if (empty($data)) {
+                $result->data = [
                     'nodes' => [],
                     'pageInfo' => [
                         'hasNextPage' => false,
@@ -89,7 +99,21 @@ trait HasList
                         'hasPreviousPage' => false,
                         'startCursor' => null
                     ]
-                ] : $data;
+                ];
+            } else {
+                if ($usePagination) {
+                    $result->data = $data;
+                } else {
+                    $result->data = [
+                        'nodes' => $data,
+                        'pageInfo' => [
+                            'hasNextPage' => false,
+                            'endCursor' => null,
+                            'hasPreviousPage' => false,
+                            'startCursor' => null
+                        ]
+                    ];
+                }
             }
             return Response::fromResult($result, $res);
         }

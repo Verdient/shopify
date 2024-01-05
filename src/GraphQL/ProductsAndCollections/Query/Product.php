@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Verdient\Shopify\GraphQL\ProductsAndCollections\Query;
 
 use Verdient\Shopify\GraphQL\AbstractComponent;
+use Verdient\Shopify\GraphQL\Resource;
 use Verdient\Shopify\GraphQL\Traits\HasOne;
 
 /**
@@ -17,6 +18,8 @@ class Product extends AbstractComponent
 
     /**
      * 图片
+     * @param int|string $productId 商品编号
+     * @return ProductImage
      * @author Verdient。
      */
     public function image($productId)
@@ -28,8 +31,8 @@ class Product extends AbstractComponent
      * @inheritdoc
      * @author Verdient。
      */
-    protected function resource(): string
+    protected function resource(): Resource
     {
-        return 'product';
+        return new Resource('product');
     }
 }

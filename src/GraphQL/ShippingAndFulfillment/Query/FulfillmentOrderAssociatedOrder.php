@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Verdient\Shopify\GraphQL\ShippingAndFulfillment\Query;
 
 use Verdient\Shopify\GraphQL\AbstractComponent;
+use Verdient\Shopify\GraphQL\Resource;
 use Verdient\Shopify\GraphQL\Traits\HasList;
 
 /**
@@ -16,7 +17,7 @@ class FulfillmentOrderAssociatedOrder extends AbstractComponent
     use HasList;
 
     /**
-     * @var string 订单编号
+     * @var int|string 订单编号
      * @author Verdient。
      */
     protected $orderId;
@@ -38,12 +39,8 @@ class FulfillmentOrderAssociatedOrder extends AbstractComponent
      * @inheritdoc
      * @author Verdient。
      */
-    protected function resource()
+    protected function resource(): Resource
     {
-        return [
-            'order',
-            ['id' => $this->orderId],
-            'fulfillmentOrders'
-        ];
+        return new Resource('order', 'fulfillmentOrders', ['id' => $this->orderId]);
     }
 }
