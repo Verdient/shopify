@@ -4,9 +4,6 @@
     "require": {
         "verdient/http-api": "^1.0"
     },
-    "require-dev": {
-        "swoole/ide-helper": "^4.8"
-    },
     "autoload": {
         "psr-4": {
             "Verdient\\Shopify\\": "src"
