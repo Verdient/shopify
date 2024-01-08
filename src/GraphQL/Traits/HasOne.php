@@ -29,10 +29,9 @@ trait HasOne
 
         $query = Objects::toQuery([
             'query' => [
-                $name => [
+                $name => array_merge([
                     '__params__' => ['id' => $this->toGid($id)],
-                    ...$fields
-                ]
+                ], $fields)
             ]
         ]);
 

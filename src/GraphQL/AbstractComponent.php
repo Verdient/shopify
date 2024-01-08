@@ -43,6 +43,18 @@ abstract class AbstractComponent extends AbstractClient
     public $version = '2023-10';
 
     /**
+     * @var string 代理地址
+     * @author Verdient。
+     */
+    protected $proxyHost = null;
+
+    /**
+     * @var int 代理地址
+     * @author Verdient。
+     */
+    protected $proxyPort = null;
+
+    /**
      * @inheritdoc
      * @param string $host 店铺域名
      * @param string $accessToken 授权秘钥
@@ -67,6 +79,20 @@ abstract class AbstractComponent extends AbstractClient
     }
 
     /**
+     * 设置代理
+     * @param string $host 地址
+     * @param int $port 端口
+     * @return static
+     * @author Verdient。
+     */
+    public function setProxy($host, $port = null)
+    {
+        $this->proxyHost = $host;
+        $this->proxyPort = $port;
+        return $this;
+    }
+
+    /**
      * @inheritdoc
      * @author Verdient。
      */
@@ -83,6 +109,9 @@ abstract class AbstractComponent extends AbstractClient
         $request->addHeader('X-Shopify-Access-Token', $this->accessToken);
         $request->addHeader('X-GraphQL-Cost-Include-Fields', 'true');
         $request->setTimeout(60);
+        if($this->proxyHost){
+            $request->setProxy($this->proxyHost, $this->proxyPort);
+        }
         return $request;
     }
 }
