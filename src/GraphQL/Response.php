@@ -92,7 +92,9 @@ class Response extends AbstractResponse
         } else {
             $result->errorCode = null;
             if (!empty($body['errors'])) {
-                if (count($body['errors']) === 1) {
+                if (is_scalar($body['errors'])) {
+                    $result->errorMessage = $body['errors'];
+                } else if (count($body['errors']) === 1) {
                     $result->errorMessage = $body['errors'][0]['message'];
                 } else {
                     $result->errorMessage = json_encode(array_column($body['errors'], 'message'));
