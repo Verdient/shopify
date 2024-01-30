@@ -49,7 +49,7 @@ abstract class AbstractComponent extends AbstractClient
     protected $proxyHost = null;
 
     /**
-     * @var int 代理地址
+     * @var int 代理端口
      * @author Verdient。
      */
     protected $proxyPort = null;
@@ -109,9 +109,27 @@ abstract class AbstractComponent extends AbstractClient
         $request->addHeader('X-Shopify-Access-Token', $this->accessToken);
         $request->addHeader('X-GraphQL-Cost-Include-Fields', 'true');
         $request->setTimeout(60);
-        if($this->proxyHost){
+        if ($this->proxyHost) {
             $request->setProxy($this->proxyHost, $this->proxyPort);
         }
         return $request;
+    }
+
+    /**
+     * 创建新的实例
+     * @param string $class 类名
+     * @return AbstractComponent
+     * @author Verdient。
+     */
+    protected function createInstance($class, ...$args): AbstractComponent
+    {
+        $args[] = $this->host;
+        $args[] = $this->accessToken;
+        /** @var AbstractComponent */
+        $object = new $class(...$args);
+        if ($this->proxyHost) {
+            $object->setProxy($this->proxyHost, $this->proxyPort);
+        }
+        return $object;
     }
 }
