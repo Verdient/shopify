@@ -72,6 +72,26 @@ class Objects
     }
 
     /**
+     * 格式化参数
+     * @param mixed $value 待格式化的值
+     * @return string
+     * @author Verdient。
+     */
+    protected function normalizeParamValue($value)
+    {
+        if (is_string($value)) {
+            return '"' . $value . '"';
+        }
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
+        if (is_array($value)) {
+            return json_encode($value);
+        }
+        return $value;
+    }
+
+    /**
      * @inheritdoc
      * @author Verdient。
      */
@@ -92,13 +112,7 @@ class Objects
         if (!empty($this->params)) {
             $paramsStr = '';
             foreach ($this->params as $paramName => $paramValue) {
-                if (is_string($paramValue)) {
-                    $paramValue = '"' . $paramValue . '"';
-                }
-                if (is_bool($paramValue)) {
-                    $paramValue = $paramValue ? 'true' : 'false';
-                }
-                $paramsStr .= ', ' . $paramName . ': ' . $paramValue;
+                $paramsStr .= ', ' . $paramName . ': ' . $this->normalizeParamValue($paramValue);
             }
             $paramsStr = substr($paramsStr, 2);
             $name .= '(' . $paramsStr . ')';
@@ -135,7 +149,7 @@ class Objects
     /**
      * 将数组转换为查询字符串
      * @param array $array 待转换的数组
-     * @return array
+     * @return string
      * @author Verdient。
      */
     public static function toQuery(array $array)

@@ -86,9 +86,6 @@ class Resource
      */
     public function getUsePagination(): bool
     {
-        if (empty($this->field)) {
-            return true;
-        }
         return $this->usePagination;
     }
 }
