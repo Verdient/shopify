@@ -37,10 +37,22 @@ abstract class AbstractComponent extends AbstractClient
     public $request = Request::class;
 
     /**
+     * @var string 代理地址
+     * @author Verdient。
+     */
+    protected $proxyHost = null;
+
+    /**
+     * @var int 代理端口
+     * @author Verdient。
+     */
+    protected $proxyPort = null;
+
+    /**
      * @var string|null 版本号
      * @author Verdient。
      */
-    public $version = '2023-10';
+    public $version = '2024-01';
 
     /**
      * @inheritdoc
@@ -67,6 +79,20 @@ abstract class AbstractComponent extends AbstractClient
     }
 
     /**
+     * 设置代理
+     * @param string $host 地址
+     * @param int $port 端口
+     * @return static
+     * @author Verdient。
+     */
+    public function setProxy($host, $port)
+    {
+        $this->proxyHost = $host;
+        $this->proxyPort = $port;
+        return $this;
+    }
+
+    /**
      * @inheritdoc
      * @author Verdient。
      */
@@ -76,6 +102,9 @@ abstract class AbstractComponent extends AbstractClient
         $request->addHeader('Content-Type', 'application/json');
         $request->addHeader('X-Shopify-Access-Token', $this->accessToken);
         $request->setTimeout(60);
+        if ($this->proxyHost) {
+            $request->setProxy($this->proxyHost, $this->proxyPort);
+        }
         return $request;
     }
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Verdient\Shopify\GraphQL\Traits;
 
 use Verdient\Shopify\GraphQL\Resource;
+use Verdient\Shopify\Utils;
 
 /**
  * 包含资源
@@ -26,9 +27,6 @@ trait HasResource
      */
     public function toGid($id)
     {
-        if (substr((string) $id, 0, 14) !== 'gid://shopify/') {
-            return 'gid://shopify/' . ucfirst($this->resource()->getName()) . '/' . $id;
-        }
-        return $id;
+        return Utils::toGid($this->resource()->getName(), $id);
     }
 }

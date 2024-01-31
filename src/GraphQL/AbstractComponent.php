@@ -40,7 +40,7 @@ abstract class AbstractComponent extends AbstractClient
      * @var string|null 版本号
      * @author Verdient。
      */
-    public $version = '2023-10';
+    public $version = '2024-01';
 
     /**
      * @var string 代理地址
@@ -85,7 +85,7 @@ abstract class AbstractComponent extends AbstractClient
      * @return static
      * @author Verdient。
      */
-    public function setProxy($host, $port = null)
+    public function setProxy($host, $port)
     {
         $this->proxyHost = $host;
         $this->proxyPort = $port;
