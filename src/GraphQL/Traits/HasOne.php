@@ -14,7 +14,7 @@ use Verdient\Shopify\GraphQL\Objects;
  */
 trait HasOne
 {
-    use HasResource;
+    use HasQuery;
 
     /**
      * 获取单个条目

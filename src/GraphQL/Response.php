@@ -42,8 +42,8 @@ class Response extends AbstractResponse
         $res->cost = $response->getCost();
         $res->isOK = $result->isOK;
         $res->data = $result->data;
-        $res->errorCode = $res->errorCode;
-        $res->errorMessage = $res->errorMessage;
+        $res->errorCode = $result->errorCode;
+        $res->errorMessage = $result->errorMessage;
         return $res;
     }
 
@@ -94,10 +94,24 @@ class Response extends AbstractResponse
             if (!empty($body['errors'])) {
                 if (is_scalar($body['errors'])) {
                     $result->errorMessage = $body['errors'];
-                } else if (count($body['errors']) === 1) {
-                    $result->errorMessage = $body['errors'][0]['message'];
+                } else if (is_array($body['errors'])) {
+                    $errors = [];
+                    foreach ($body['errors'] as $error) {
+                        if (is_scalar($error)) {
+                            $errors[] = $error;
+                        } else if (is_array($error) && isset($error['message'])) {
+                            $errors[] = $error['message'];
+                        } else {
+                            $errors[] = json_encode($error);
+                        }
+                    }
+                    if (count($errors) > 1) {
+                        $result->errorMessage = json_encode($errors);
+                    } else {
+                        $result->errorMessage = $errors[0] ?? json_encode($body['errors']);
+                    }
                 } else {
-                    $result->errorMessage = json_encode(array_column($body['errors'], 'message'));
+                    $result->errorMessage = json_encode($body['errors']);
                 }
             } else {
                 $result->errorMessage = $response->getStatusMessage();

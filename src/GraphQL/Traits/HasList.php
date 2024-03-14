@@ -16,7 +16,7 @@ use Verdient\Shopify\GraphQL\Objects;
  */
 trait HasList
 {
-    use HasResource;
+    use HasQuery;
 
     /**
      * 获取列表

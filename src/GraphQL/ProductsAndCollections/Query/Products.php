@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Verdient\Shopify\GraphQL\ProductsAndCollections\Query;
 
 use Verdient\Shopify\GraphQL\AbstractComponent;
-use Verdient\Shopify\GraphQL\Resource;
+use Verdient\Shopify\GraphQL\Query;
 use Verdient\Shopify\GraphQL\Traits\HasList;
 
 /**
@@ -20,8 +20,8 @@ class Products extends AbstractComponent
      * @inheritdoc
      * @author Verdient。
      */
-    protected function resource(): Resource
+    protected function resource(): Query
     {
-        return new Resource('products');
+        return new Query('products');
     }
 }

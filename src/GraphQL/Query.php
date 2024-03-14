@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Verdient\Shopify\GraphQL;
 
 /**
- * 资源
+ * 查询
  * @author Verdient。
  */
-class Resource
+class Query
 {
     /**
      * @var string 资源名称

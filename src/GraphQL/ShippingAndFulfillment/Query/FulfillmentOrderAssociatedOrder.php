@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Verdient\Shopify\GraphQL\ShippingAndFulfillment\Query;
 
 use Verdient\Shopify\GraphQL\AbstractComponent;
-use Verdient\Shopify\GraphQL\Resource;
+use Verdient\Shopify\GraphQL\Query;
 use Verdient\Shopify\GraphQL\Traits\HasList;
 
 /**
@@ -39,8 +39,8 @@ class FulfillmentOrderAssociatedOrder extends AbstractComponent
      * @inheritdoc
      * @author Verdient。
      */
-    protected function resource(): Resource
+    protected function resource(): Query
     {
-        return new Resource('order', 'fulfillmentOrders', ['id' => $this->orderId]);
+        return new Query('order', 'fulfillmentOrders', ['id' => $this->orderId]);
     }
 }
