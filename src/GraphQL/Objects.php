@@ -79,6 +79,9 @@ class Objects
      */
     protected function normalizeParamValue($value)
     {
+        if ($value instanceof Expression) {
+            return (string) $value;
+        }
         if (is_string($value)) {
             return '"' . $value . '"';
         }
