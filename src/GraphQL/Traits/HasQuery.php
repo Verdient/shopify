@@ -26,6 +26,6 @@ trait HasQuery
      */
     public function toGid($id): string
     {
-        return Utils::toGid($this->query()->getName(), $id);
+        return Utils::toGid($this->resource()->getName(), $id);
     }
 }
