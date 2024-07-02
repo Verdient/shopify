@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Verdient\Shopify\GraphQL\ShippingAndFulfillment\Mutation;
+namespace Verdient\Shopify\GraphQL\Events\Mutation;
 
 use Verdient\Shopify\GraphQL\AbstractComponent;
 use Verdient\Shopify\GraphQL\Mutation;
 use Verdient\Shopify\GraphQL\Traits\HasMutation;
 
 /**
- * 创建履约
+ * 创建Webhook订阅
  * @author Verdient。
  */
-class FulfillmentCreateV2 extends AbstractComponent
+class WebhookSubscriptionCreate extends AbstractComponent
 {
     use HasMutation;
 
@@ -23,9 +23,12 @@ class FulfillmentCreateV2 extends AbstractComponent
     public function resource(): Mutation
     {
         return new Mutation(
-            'fulfillment',
-            'fulfillmentCreateV2',
-            ['fulfillment' => 'FulfillmentV2Input!']
+            'webhookSubscription',
+            'webhookSubscriptionCreate',
+            [
+                'topic' => 'WebhookSubscriptionTopic!',
+                'webhookSubscription' => 'WebhookSubscriptionInput!'
+            ]
         );
     }
 }

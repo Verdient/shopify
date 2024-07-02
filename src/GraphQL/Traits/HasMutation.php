@@ -44,13 +44,20 @@ trait HasMutation
     public function mutation(array $variables, array $fields = [])
     {
         $resource = $this->resource();
-        $name = $resource->getName();
-
         $method = $resource->getMethod();
-        $inputEntity = $resource->getInputEntity();
+        $params = $resource->getParams();
+
+        $__params__ = [];
+        $__params__2 = [];
+
+        foreach ($params as $name => $inputEntity) {
+            $variable = '$' . $name;
+            $__params__[$name] = new Expression($variable);
+            $__params__2[$variable] = new Expression($inputEntity);
+        }
 
         $params = [
-            '__params__' => [$name => new Expression('$' . $name)]
+            '__params__' => $__params__
         ];
 
         if (!empty($fields)) {
@@ -63,7 +70,7 @@ trait HasMutation
 
         $query = Objects::toQuery([
             'mutation ' . $method => [
-                '__params__' => ['$' . $name => new Expression($inputEntity)],
+                '__params__' => $__params__2,
                 $method => $params
             ]
         ]);
@@ -73,9 +80,7 @@ trait HasMutation
         $request->setBodySerializer(JsonBodySerializer::class);
         $request->setBody([
             'query' => $query,
-            'variables' => [
-                $name => $variables
-            ]
+            'variables' => $variables
         ]);
 
         $res = $request->send();

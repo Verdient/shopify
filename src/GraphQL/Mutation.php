@@ -23,22 +23,22 @@ class Mutation
     protected $method;
 
     /**
-     * @var string 输入实体
+     * @var array 参数
      * @author Verdient。
      */
-    protected $inputEntity;
+    protected $params;
 
     /**
      * @param string $name 资源名称
-     * @param string $method 方法名称
-     * @param array $inputEntity 输入实体
+     * @param string $name 资源名称
+     * @param string[] $params 参数
      * @author Verdient。
      */
-    public function __construct(string $name, string $method, string $inputEntity)
+    public function __construct(string $name, string $method, array $params)
     {
         $this->name = $name;
         $this->method = $method;
-        $this->inputEntity = $inputEntity;
+        $this->params = $params;
     }
 
     /**
@@ -60,11 +60,11 @@ class Mutation
     }
 
     /**
-     * 获取输入实体
+     * 获取参数
      * @author Verdient。
      */
-    public function getInputEntity(): string
+    public function getParams(): array
     {
-        return $this->inputEntity;
+        return $this->params;
     }
 }
