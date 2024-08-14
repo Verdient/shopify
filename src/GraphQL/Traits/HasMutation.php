@@ -91,7 +91,7 @@ trait HasMutation
                 if (empty($resData[$method]['userErrors'])) {
                     $result = new Result;
                     $result->isOK = true;
-                    $result->data = $res->$name;
+                    $result->data = $res->getData();
                     return Response::fromResult($result, $res);
                 } else {
                     $errors = array_column($resData[$method]['userErrors'], 'message');
