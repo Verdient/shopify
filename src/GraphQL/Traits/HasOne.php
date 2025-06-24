@@ -7,6 +7,7 @@ namespace Verdient\Shopify\GraphQL\Traits;
 use Verdient\HttpAPI\Result;
 use Verdient\Shopify\GraphQL\Response;
 use Verdient\Shopify\GraphQL\Objects;
+use Verdient\Shopify\GraphQL\Request;
 
 /**
  * 包含获取单个
@@ -35,9 +36,11 @@ trait HasOne
             ]
         ]);
 
-        $res = $this
-            ->request()
-            ->setContent($query)
+        /** @var Request */
+        $request = $this->request();
+
+        $res = $request
+            ->setBody(['query' => $query])
             ->send();
 
         if ($res->getIsOK()) {

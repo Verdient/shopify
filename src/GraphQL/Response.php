@@ -24,9 +24,7 @@ class Response extends AbstractResponse
      * @inheritdoc
      * @author Verdient。
      */
-    protected function __construct()
-    {
-    }
+    protected function __construct() {}
 
     /**
      * 通过结果创建
@@ -84,6 +82,13 @@ class Response extends AbstractResponse
         $result = new Result;
 
         $body = $response->getBody();
+
+        if (!is_array($body)) {
+            $result->isOK = false;
+            $result->errorCode = $response->getStatusCode();
+            $result->errorMessage = (string) $body;
+            return $result;
+        }
 
         $result->isOK = array_key_exists('data', $body) && empty($body['errors']);
 

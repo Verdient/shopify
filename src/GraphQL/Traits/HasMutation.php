@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Verdient\Shopify\GraphQL\Traits;
 
-use Verdient\http\serializer\body\JsonBodySerializer;
 use Verdient\HttpAPI\Result;
 use Verdient\Shopify\GraphQL\Expression;
 use Verdient\Shopify\GraphQL\Mutation;
@@ -77,7 +76,6 @@ trait HasMutation
 
         /** @var Request */
         $request = $this->request();
-        $request->setBodySerializer(JsonBodySerializer::class);
         $request->setBody([
             'query' => $query,
             'variables' => $variables

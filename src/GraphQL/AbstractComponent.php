@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Verdient\Shopify\GraphQL;
 
+use Verdient\http\serializer\body\JsonBodySerializer;
 use Verdient\HttpAPI\AbstractClient;
 
 /**
@@ -40,7 +41,7 @@ abstract class AbstractComponent extends AbstractClient
      * @var string|null 版本号
      * @author Verdient。
      */
-    public $version = '2024-07';
+    public $version = '2025-04';
 
     /**
      * @var string 代理地址
@@ -105,9 +106,10 @@ abstract class AbstractComponent extends AbstractClient
         }
         $request = parent::request($path);
         $request->setMethod('POST');
-        $request->addHeader('Content-Type', 'application/graphql');
+        $request->addHeader('Content-Type', 'application/json');
         $request->addHeader('X-Shopify-Access-Token', $this->accessToken);
         $request->addHeader('X-GraphQL-Cost-Include-Fields', 'true');
+        $request->setBodySerializer(JsonBodySerializer::class);
         $request->setTimeout(60);
         if ($this->proxyHost) {
             $request->setProxy($this->proxyHost, $this->proxyPort);
