@@ -46,6 +46,12 @@ trait HasMutation
         $method = $resource->getMethod();
         $params = $resource->getParams();
 
+        foreach (array_keys($params) as $key) {
+            if (!array_key_exists($key, $variables)) {
+                unset($params[$key]);
+            }
+        }
+
         $__params__ = [];
         $__params__2 = [];
 
@@ -60,11 +66,12 @@ trait HasMutation
         ];
 
         if (!empty($fields)) {
-            $params[$name] = $fields;
+            $params = array_merge($params, $fields);
         }
 
         $params['userErrors'] = [
-            'field', 'message'
+            'field',
+            'message'
         ];
 
         $query = Objects::toQuery([
